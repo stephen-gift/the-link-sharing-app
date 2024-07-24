@@ -93,8 +93,9 @@ const DLCreateAccountForm = () => {
                       placeholder="e.g. alex@email.com"
                       type="email"
                       w={"full"}
+                      isInvalid={touched.email && !!errors.email}
+                      error={errors.email}
                     />
-                    <FormErrorMessage>{errors.email}</FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
@@ -111,8 +112,9 @@ const DLCreateAccountForm = () => {
                       type="password"
                       placeholder="At least 8 characters"
                       w={"full"}
+                      isInvalid={touched.password && !!errors.password}
+                      error={errors.password}
                     />
-                    <FormErrorMessage>{errors.password}</FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
@@ -131,10 +133,11 @@ const DLCreateAccountForm = () => {
                       type="password"
                       placeholder="At least 8 characters"
                       w={"full"}
+                      isInvalid={
+                        touched.confirmPassword && !!errors.confirmPassword
+                      }
+                      error={errors.confirmPassword}
                     />
-                    <FormErrorMessage>
-                      {errors.confirmPassword}
-                    </FormErrorMessage>
                   </FormControl>
                 )}
               </Field>

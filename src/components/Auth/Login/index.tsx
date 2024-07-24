@@ -68,7 +68,7 @@ const DLLoginForm = () => {
             handleLogin(values, setSubmitting);
           }}
         >
-          {({ errors, touched, isValid, dirty }) => (
+          {({ errors, touched, isValid, dirty,isSubmitting }) => (
             <Form>
               <Field name="email">
                 {({ field }: FieldProps<string>) => (
@@ -107,7 +107,7 @@ const DLLoginForm = () => {
                 w={"full"}
                 isDisabled={!(isValid && dirty)}
               >
-                Login
+                 {isSubmitting ? "Logging In..." : "Login"}
               </DLButton>
             </Form>
           )}
