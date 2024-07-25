@@ -17,6 +17,7 @@ import { Tab } from "../../Tabs";
 import DLPreviewButton from "../../Button/PreviewButton";
 import { listDocuments } from "@/app/appwrite";
 import { Link } from "@/types/user";
+import { useLinkStore } from "../../../../../store";
 
 interface DLMainLayoutProps {
   children: React.ReactNode;
@@ -31,6 +32,7 @@ interface DocumentType {
 const DLMainLayout = ({ children, tabs, onTabChange }: DLMainLayoutProps) => {
   const [documents, setDocuments] = useState<DocumentType[]>([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useLinkStore();
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -68,10 +70,28 @@ const DLMainLayout = ({ children, tabs, onTabChange }: DLMainLayoutProps) => {
           >
             <DLPhoneMockup>
               <VStack spacing={4} align="stretch" w="full">
-                <Circle size="100px" bg="gray.200" alignSelf="center" />
-
-                <Skeleton height="20px" width="80%" alignSelf="center" />
-                <Skeleton height="10px" width="60%" alignSelf="center" />
+                <Circle
+                  size="200px"
+                  bg="gray.200"
+                  alignSelf="center"
+                  border={"2px"}
+                >
+                  {user?.prefs?.picture ? (
+                    <Image
+                      src={user.prefs.picture}
+                      alt={user.name}
+                      borderRadius="full"
+                      boxSize="200px"
+                      border={"2px"}
+                    />
+                  ) : (
+                    <Skeleton  size="100px" />
+                  )}
+                </Circle>
+                <Box textAlign="center">
+                  {user?.name && <Box fontWeight="bold">{user.name}</Box>}
+                  {user?.email && <Box color="gray.500">{user.email}</Box>}
+                </Box>
                 {loading ? (
                   <>
                     <Skeleton height="20px" width="80%" alignSelf="center" />
@@ -81,14 +101,14 @@ const DLMainLayout = ({ children, tabs, onTabChange }: DLMainLayoutProps) => {
                     {/* Add more Skeletons if needed */}
                   </>
                 ) : (
-                  documents.map((doc) => (
-                    <>
+                  <VStack spacing={2}  overflowY="auto" w="full">
+                    {documents.map((doc) => (
                       <DLPreviewButton
                         key={doc.platform}
                         label={doc.platform}
                       />
-                    </>
-                  ))
+                    ))}
+                  </VStack>
                 )}
               </VStack>
             </DLPhoneMockup>
