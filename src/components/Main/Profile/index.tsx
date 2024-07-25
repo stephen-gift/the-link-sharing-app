@@ -195,11 +195,21 @@ const DLProfileSection: React.FC = () => {
               </Field>
             </VStack>
             <Divider />
-            <Flex justifyContent="flex-end" alignItems="flex-end" py={2}>
+
+            <Flex
+              justifyContent="flex-end"
+              alignItems="flex-end"
+              py={3}
+              position="sticky"
+              bottom={0}
+              bg="white"
+              zIndex={1}
+            >
               <DLButton
                 variant="primary"
-                state={isSubmitting ? "disabled" : "default"}
                 type="submit"
+                state={isSubmitting ? "disabled" : "default"}
+                isLoading={isSubmitting}
               >
                 Save
               </DLButton>
