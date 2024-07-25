@@ -15,6 +15,7 @@ const DLPreviewPage = (props: Props) => {
         position={"absolute"}
         top={0}
         zIndex={-1}
+        borderBottomRadius={20}
       ></Box>
       <DLPreviewContainer />
     </>
