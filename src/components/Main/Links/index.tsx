@@ -31,6 +31,7 @@ import {
 import { Link, LinkResponse } from "@/types/user";
 import { useLinkStore } from "../../../../store";
 import { FaEquals } from "react-icons/fa";
+import DLLoader from "@/components/global/Loader/DLLoader";
 
 const DLLinkSection: React.FC = () => {
   const toast = useToast();
@@ -188,7 +189,7 @@ const DLLinkSection: React.FC = () => {
               </DLButton>
 
               {isLoading ? (
-                <Text>Loading...</Text>
+                <DLLoader />
               ) : values.links.length === 0 ? (
                 <VStack
                   spacing={4}
@@ -214,71 +215,85 @@ const DLLinkSection: React.FC = () => {
               ) : (
                 <FieldArray name="links">
                   {({ remove, push }) => (
-                    <VStack spacing={4} align="stretch">
-                      {values.links.map((link, index) => (
-                        <Box
-                          key={index}
-                          borderWidth={1}
-                          borderRadius="md"
-                          p={4}
-                        >
-                          <HStack justifyContent="space-between" mb={2}>
-                            <Text
-                              display="flex"
-                              gap={1}
-                              justifyContent={"center"}
-                              alignItems={"center"}
-                              fontWeight="bold"
-                            >
-                              <FaEquals />
-                              Link #{index + 1}
-                            </Text>
+                    <Box
+                      maxHeight="400px" // Adjust the height as needed
+                      overflowY="auto"
+                      borderRadius="md"
+                    >
+                      <VStack spacing={4} align="stretch">
+                        {values.links.map((link, index) => (
+                          <Box
+                            key={index}
+                            borderWidth={1}
+                            borderRadius="md"
+                            p={4}
+                          >
+                            <HStack justifyContent="space-between" mb={2}>
+                              <Text
+                                display="flex"
+                                gap={1}
+                                justifyContent={"center"}
+                                alignItems={"center"}
+                                fontWeight="bold"
+                              >
+                                <FaEquals />
+                                Link #{index + 1}
+                              </Text>
 
-                            <Text
-                              cursor={"pointer"}
-                              onClick={() => remove(index)}
-                              color={"#737373"}
-                            >
-                              Remove
-                            </Text>
-                          </HStack>
-                          <VStack align="stretch">
-                            <Field name={`links.${index}.platform`}>
-                              {({ field }: any) => (
-                                <DLDropdown
-                                  placeholder="Select platform"
-                                  options={socialOptions}
-                                  value={field.value}
-                                  onChange={(selectedOption) =>
-                                    setFieldValue(field.name, selectedOption)
-                                  }
-                                />
-                              )}
-                            </Field>
-                            <Field name={`links.${index}.url`}>
-                              {({ field, form }: any) => (
-                                <DLInput
-                                  {...field}
-                                  placeholder="e.g. https://www.github.com/johnappleseed"
-                                  icon={MdLink}
-                                  label="Link"
-                                  error={
-                                    form.touched.links?.[index]?.url &&
-                                    form.errors.links?.[index]?.url
-                                  }
-                                />
-                              )}
-                            </Field>
-                          </VStack>
-                        </Box>
-                      ))}
-                    </VStack>
+                              <Text
+                                cursor={"pointer"}
+                                onClick={() => remove(index)}
+                                color={"#737373"}
+                              >
+                                Remove
+                              </Text>
+                            </HStack>
+                            <VStack align="stretch">
+                              <Field name={`links.${index}.platform`}>
+                                {({ field }: any) => (
+                                  <DLDropdown
+                                    placeholder="Select platform"
+                                    options={socialOptions}
+                                    value={field.value}
+                                    onChange={(selectedOption) =>
+                                      setFieldValue(field.name, selectedOption)
+                                    }
+                                  />
+                                )}
+                              </Field>
+                              <Field name={`links.${index}.url`}>
+                                {({ field, form }: any) => (
+                                  <DLInput
+                                    {...field}
+                                    placeholder="e.g. https://www.github.com/johnappleseed"
+                                    icon={MdLink}
+                                    label="Link"
+                                    error={
+                                      form.touched.links?.[index]?.url &&
+                                      form.errors.links?.[index]?.url
+                                    }
+                                  />
+                                )}
+                              </Field>
+                            </VStack>
+                          </Box>
+                        ))}
+                      </VStack>
+                    </Box>
                   )}
                 </FieldArray>
               )}
 
               <Divider />
-              <Flex justifyContent="flex-end" alignItems="flex-end" py={3}>
+              <Flex
+                justifyContent="flex-end"
+                alignItems="flex-end"
+                py={3}
+                position="sticky"
+                bottom={0}
+                bg="white"
+                zIndex={1}
+              >
                 <DLButton
                   variant="primary"
                   state="default"

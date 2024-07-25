@@ -1,14 +1,24 @@
+"use client";
 import DLPreviewContainer from "@/container/Profile/DLPreviewContainer";
+import { Box } from "@chakra-ui/react";
 import React from "react";
 
 type Props = {};
 
-const page = (props: Props) => {
+const DLPreviewPage = (props: Props) => {
   return (
     <>
+      <Box
+        bg={"purple"}
+        h={200}
+        w={"full"}
+        position={"absolute"}
+        top={0}
+        zIndex={-1}
+      ></Box>
       <DLPreviewContainer />
     </>
   );
 };
 
-export default page;
+export default DLPreviewPage;

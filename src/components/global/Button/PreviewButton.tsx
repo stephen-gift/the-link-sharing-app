@@ -1,4 +1,12 @@
-import { VStack, Button, Box, Icon, ButtonProps } from "@chakra-ui/react";
+import {
+  VStack,
+  Button,
+  Box,
+  Icon,
+  ButtonProps,
+  useClipboard,
+  useToast,
+} from "@chakra-ui/react";
 import {
   FaGithub,
   FaTwitter,
@@ -52,9 +60,13 @@ const bgMap: Record<string, string> = {
 
 interface SocialLinkProps extends ButtonProps {
   label: string;
+  url: string;
 }
 
-const DLPreviewButton = ({ label, ...buttonProps }: SocialLinkProps) => {
+const DLPreviewButton = ({ label, url, ...buttonProps }: SocialLinkProps) => {
+  const { onCopy } = useClipboard(url);
+  const toast = useToast();
+
   // Retrieve icon, background color, and URL based on the label
   const icon = iconMap[label];
   const bg = bgMap[label];
@@ -62,10 +74,21 @@ const DLPreviewButton = ({ label, ...buttonProps }: SocialLinkProps) => {
   if (!icon || !bg) {
     return null; // or return a fallback UI if desired
   }
+
+  const handleClick = () => {
+    onCopy();
+    toast({
+      title: "URL copied!",
+      description: "The URL has been copied to your clipboard.",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
+  };
+
   return (
     <Button
-      target="_blank"
-      rel="noopener noreferrer"
+      onClick={handleClick}
       leftIcon={<Icon as={icon} />}
       rightIcon={<Box>&gt;</Box>}
       justifyContent="space-between"

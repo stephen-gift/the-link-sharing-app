@@ -6,6 +6,7 @@ import DLDropdown from "./global/DropDown";
 import DLImageUpload from "./global/ImageUpload";
 import DLAuthLayout from "./global/Layout/AuthLayout";
 import DLMainLayout from "./global/Layout/MainLayout";
+import DLLoader from "./global/Loader/DLLoader";
 import DLNavbar from "./global/Navbar";
 import DLPhoneMockup from "./global/PhoneMockup";
 import DLTabs from "./global/Tabs";
@@ -29,4 +30,5 @@ export {
   DLCreateAccountForm,
   DLLoginForm,
   DLPreviewButton,
+  DLLoader,
 };

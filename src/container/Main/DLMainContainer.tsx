@@ -2,6 +2,7 @@
 
 import { DLLinkSection, DLMainLayout, DLProfileSection } from "@/components";
 import { Box } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { BiLink, BiUser } from "react-icons/bi";
 
@@ -11,6 +12,7 @@ const tabs = [
 ];
 
 const DLMainContainer = () => {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<string>(tabs[0]?.state || "");
 
   const handleTabChange = (tab: string) => {

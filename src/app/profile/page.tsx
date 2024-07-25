@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { account } from "../appwrite";
 import { Models } from "appwrite";
+import { DLLoader } from "@/components";
 
 export default function Home() {
   const [user, setUser] = useState<Models.User<{}> | null>(null);
@@ -30,7 +31,7 @@ export default function Home() {
     }
   };
 
-  if (!user) return <div>Loading...</div>;
+  if (!user) return <DLLoader />;
 
   return (
     <>

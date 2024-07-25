@@ -27,6 +27,7 @@ interface DLMainLayoutProps {
 
 interface DocumentType {
   platform: string; // Adjust this field based on your actual document structure
+  url:string
 }
 
 const DLMainLayout = ({ children, tabs, onTabChange }: DLMainLayoutProps) => {
@@ -62,7 +63,7 @@ const DLMainLayout = ({ children, tabs, onTabChange }: DLMainLayoutProps) => {
         {/* Main content */}
         <Flex gap={4}>
           <Box
-            h={"full"}
+            h={"100vh"}
             flex={1.5}
             bg={"white.500"}
             display={["none", "none", "none", "block"]}
@@ -104,6 +105,7 @@ const DLMainLayout = ({ children, tabs, onTabChange }: DLMainLayoutProps) => {
                   <VStack spacing={2}  overflowY="auto" w="full">
                     {documents.map((doc) => (
                       <DLPreviewButton
+                      url={doc.url}
                         key={doc.platform}
                         label={doc.platform}
                       />

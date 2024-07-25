@@ -19,6 +19,7 @@ import { Models } from "appwrite";
 import { getUser, updatePrefs, updateUser } from "@/app/appwrite";
 import { AppwriteUser } from "@/types/user";
 import { useLinkStore } from "../../../../store";
+import DLLoader from "@/components/global/Loader/DLLoader";
 
 const DLProfileSection: React.FC = () => {
   const { user, setUser } = useLinkStore();
@@ -45,7 +46,7 @@ const DLProfileSection: React.FC = () => {
   }, [toast]);
 
   if (!user) {
-    return <Box>Loading...</Box>;
+    return <DLLoader />;
   }
 
   return (
@@ -129,8 +130,11 @@ const DLProfileSection: React.FC = () => {
                       label="First Name*"
                       labelPosition="side"
                       placeholder="e.g. John"
+                      isInvalid={
+                        form.errors.firstName && !!form.touched.firstName
+                      }
+                      error={form.errors.firstName}
                     />
-                    <FormErrorMessage>{form.errors.firstName}</FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
@@ -145,8 +149,12 @@ const DLProfileSection: React.FC = () => {
                       label="Last Name*"
                       labelPosition="side"
                       placeholder="e.g. Appleseed"
+                      isInvalid={
+                        form.errors.lastName && !!form.touched.lastName
+                      }
+                      error={form.errors.lastName}
                     />
-                    <FormErrorMessage>{form.errors.lastName}</FormErrorMessage>
+                    <FormErrorMessage></FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
@@ -161,6 +169,7 @@ const DLProfileSection: React.FC = () => {
                       label="Email"
                       labelPosition="side"
                       placeholder="e.g. email@example.com"
+                      error={form.errors.email}
                     />
                     <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                   </FormControl>
@@ -177,9 +186,10 @@ const DLProfileSection: React.FC = () => {
                       label="Picture URL"
                       labelPosition="side"
                       placeholder="e.g. https://example.com/picture.jpg"
+                      error={form.errors.picture}
                       isReadOnly
                     />
-                    <FormErrorMessage>{form.errors.picture}</FormErrorMessage>
+                    <FormErrorMessage></FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
